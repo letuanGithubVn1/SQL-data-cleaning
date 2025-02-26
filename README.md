@@ -23,12 +23,12 @@ SELECT * fROM club_member_info LIMIT 10;
 |mendie alexandrescu|46|single|malexandrescu8@state.gov|504-918-4753|34 Delladonna Terrace,New Orleans,Louisiana|Systems Administrator III|3/12/1921|
 | fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 Jackson Park,Honolulu,Hawaii|Chemical Engineer|11/5/2014|
 
-##Làm sạch dự liệu
+## Làm sạch dự liệu
 
 **Tạo bảng mới**
 Tạo bảng mới giống bảng gốc dùng để làm sạch, nhưng không ảnh hưởng đến bảng gốc
 
-###Tạo bảng mới.
+### Tạo bảng mới.
 ***Query:***
 ```SQL
 CREATE TABLE club_member_info_cleaned (
@@ -42,7 +42,7 @@ CREATE TABLE club_member_info_cleaned (
 	membership_date VARCHAR(50)
 );
 ```
-###Sao chép dữ liệu từ bảng gốc.
+### Sao chép dữ liệu từ bảng gốc.
 ***Query:***
 ```SQL
 INSERT INTO club_member_info_cleaned SELECT * FROM club_member_info;
