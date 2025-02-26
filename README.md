@@ -87,7 +87,7 @@ INSERT INTO club_member_info_cleaned SELECT * FROM club_member_info;
     WHERE job_title = "";
 ```
 
-**Kết quả sau khi được làm sạch:**
+## Kết quả sau khi được làm sạch:
 
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
