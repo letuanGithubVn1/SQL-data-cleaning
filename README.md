@@ -47,9 +47,7 @@ INSERT INTO club_member_info_cleaned SELECT * FROM club_member_info;
 ```
 ### Chạy các lệnh sau để làm sạch dữ liệu
 ```SQL
-BEGIN TRANSACTION;
-
-    -- Chuẩn hóa chữ thường và xóa khoảng trắng
+ -- Chuẩn hóa chữ thường và xóa khoảng trắng
     UPDATE club_member_info_cleaned
     SET 
         full_name = CONCAT(UPPER(SUBSTRING(TRIM(full_name), 1, 1)), LOWER(SUBSTRING(TRIM(full_name), 2))),
@@ -87,8 +85,6 @@ BEGIN TRANSACTION;
 	 	UPDATE club_member_info_cleaned 
 	    SET  martial_status = "NULL"
     	WHERE job_title = "";
-
-COMMIT;
 ```
 
 
