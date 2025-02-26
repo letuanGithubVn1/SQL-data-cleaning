@@ -3,11 +3,11 @@
 
 **Tập dữ liệu gốc ở định dạng CSV nằm trong tệp `club_member_info.csv`.**
 
-### 10 dòng đầu tiên trong tệp `club_member_info`
+### 10 dòng đầu tiên trong tệp `club_member_info`.
 
 ***Query:***
 ```SQL
-SELECT * fROM club_member_info cmi LIMIT 10;
+SELECT * fROM club_member_info LIMIT 10;
 ```
 ***The result:***
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
