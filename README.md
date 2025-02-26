@@ -24,8 +24,6 @@ SELECT * fROM club_member_info LIMIT 10;
 | fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 Jackson Park,Honolulu,Hawaii|Chemical Engineer|11/5/2014|
 
 ## Làm sạch dữ liệu
-
-**Tạo bảng mới**
 Tạo bảng mới có cấu trúc giống bảng gốc dùng để làm sạch, nhưng không ảnh hưởng đến bảng gốc.
 
 ### Tạo bảng mới.
