@@ -1,5 +1,4 @@
-# SQL-data-cleaning
-## Dự án Làm sạch và Chuẩn bị Dữ liệu bằng SQL
+# Dự án Làm sạch và Chuẩn bị Dữ liệu bằng SQL
 
 **Tập dữ liệu gốc ở định dạng CSV nằm trong tệp `club_member_info.csv`.**
 
