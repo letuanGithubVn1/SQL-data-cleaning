@@ -45,7 +45,51 @@ CREATE TABLE club_member_info_cleaned (
 ```SQL
 INSERT INTO club_member_info_cleaned SELECT * FROM club_member_info;
 ```
+### Chạy các lệnh sau để làm sạch dữ liệu
+```SQL
+BEGIN TRANSACTION;
 
+    -- Chuẩn hóa chữ thường và xóa khoảng trắng
+    UPDATE club_member_info_cleaned
+    SET 
+        full_name = CONCAT(UPPER(SUBSTRING(TRIM(full_name), 1, 1)), LOWER(SUBSTRING(TRIM(full_name), 2))),
+        email = LOWER(TRIM(email)),
+        job_title = LOWER(TRIM(job_title)),
+        martial_status = LOWER(TRIM(martial_status)),
+        phone = LOWER(TRIM(phone)),
+        membership_date = LOWER(TRIM(membership_date)),
+		full_address = LOWER(TRIM(full_address)),
+		age = LOWER(TRIM(age));
+    
+    -- Kiểm tra tuổi có hợp lệ không (<18 hoặc >100 hoặc age = null)
+	    SELECT * FROM club_member_info_cleaned
+	    WHERE age < 18 or age > 100 or age is null;
+
+ 	-- Thay thế tuổi không hợp bằng giá trị xuất hiện nhiều nhất
+	    UPDATE club_member_info_cleaned 
+	    SET  age = (SELECT MODE(age) FROM club_member_info_cleaned)
+    	WHERE age < 18 or age > 100 or age is null;
+
+ 	-- Kiểm tra hợp lệ martial_status 
+ 		SELECT * FROM club_member_info_cleaned 
+ 		WHERE martial_status NOT IN ("married", "divorced", "single")
+ 	
+ 	-- Thay thế các giá trị rỗng ở cột martial_status bằng giá trị NULL
+	    UPDATE club_member_info_cleaned 
+	    SET  martial_status = "NULL"
+    	WHERE martial_status NOT IN ("married", "divorced", "single")
+
+	 -- Kiểm tra job_title có bị miss không
+	 	SELECT * FROM club_member_info_cleaned cmic
+		WHERE job_title = "";
+	 
+	 -- Thay thế bằng giá trị null cho cột martial_status
+	 	UPDATE club_member_info_cleaned 
+	    SET  martial_status = "NULL"
+    	WHERE job_title = "";
+
+COMMIT;
+```
 
 
 
