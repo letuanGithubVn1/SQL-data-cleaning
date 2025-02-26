@@ -5,11 +5,11 @@
 
 ### 10 dòng đầu tiên trong tệp `club_member_info`
 
-***Query***
+***Query:***
 ```SQL
-Select * from club_member_info cmi limit 10;
+SELECT * fROM club_member_info cmi LIMIT 10;
 ```
-***The result***
+***The result:***
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
 |addie lush|40|married|alush0@shutterfly.com|254-389-8708|3226 Eastlawn Pass,Temple,Texas|Assistant Professor|7/31/2013|
