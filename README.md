@@ -132,13 +132,15 @@ Delete from club_member_info_cleaned where ROWID in (Select ROWID
 							where n.maxID > o.ROWID)
 ```
 **Giải thích:**
-	`SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  GROUP BY email`: lấy ROWID lớn nhất cho mỗi email trong bảng. Mục đích xác định bản ghi cuối cùng nhập vào đối với mỗi email
-	`Select 	
-	 ROWID FROM club_member_info_cleaned o
-	 JOIN (SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  
-	 GROUP BY email) as n ON o.email = n.email
-	 where n.maxID > o.ROWID`: Lấy danh sách ROWID cần xóa để loại bỏ bản ghi trùng. Chỉ giữ lại bản ghi có ROWID lớn nhất cho mỗi email vì có thể đó là bản ghi chính xác nhất.
-	 ***Chú ý***: Vì trong table không có cột id nên chúng ta sử dụng ROWID(chỉ dành riêng cho SQLite) để thay thế 
+
+- `SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic GROUP BY email`: Lấy ROWID lớn nhất cho mỗi email trong bảng. Mục đích xác định bản ghi cuối cùng nhập vào đối với mỗi email.
+
+- `SELECT ROWID FROM club_member_info_cleaned o
+  JOIN (SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  
+  GROUP BY email) as n ON o.email = n.email
+  WHERE n.maxID > o.ROWID`: Lấy danh sách ROWID cần xóa để loại bỏ bản ghi trùng. Chỉ giữ lại bản ghi có ROWID lớn nhất cho mỗi email vì có thể đó là bản ghi chính xác nhất.
+
+***Chú ý***: Vì trong table không có cột id nên chúng ta sử dụng ROWID (chỉ dành riêng cho SQLite) để thay thế.
 
 
 
