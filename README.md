@@ -102,5 +102,63 @@ INSERT INTO club_member_info_cleaned SELECT * FROM club_member_info;
 |Fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 jackson park,honolulu,hawaii|chemical engineer|11/5/2014|
 
 
+## Vấn đề thảo luận:
+Trong quá trình thu thập và lưu trữ dữ liệu, việc nhập trùng lặp có thể xảy ra do người dùng nhập lại thông tin. Điều này dẫn đến dữ liệu dư thừa và ảnh hưởng đến chất lượng phân tích. Chẳng hạn như giá trị của cột email nên chỉ được sử dụng 1 lần.
+### Kiểm tra các bản ghi trùng lặp.
+***Query:***
+```SQL
+Select email, count(*) From club_member_info_cleaned group by email having count(email) >= 2
+```
+***result***
+|email|count(*)|
+|-----|--------|
+|ehuxterm0@marketwatch.com|3|
+|gprewettfl@mac.com|2|
+|greglar4r@answers.com|2|
+|hbradenri@freewebs.com|2|
+|mmorralleemj@wordpress.com|2|
+|nfilliskirkd5@newsvine.com|2|
+|omaccaughen1o@naver.com|2|
+|slamble81@amazon.co.uk|2|
+|tdunkersley8u@dedecms.com|2|
+
+### Loại bỏ các bản ghi trùng lặp, chỉ giữ bản ghi cuối cùng
+***Query:***
+```SQL
+Delete from club_member_info_cleaned where ROWID in (Select ROWID
+							FROM club_member_info_cleaned o
+							JOIN (SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  
+ 							GROUP BY email) as n ON o.email = n.email
+							where n.maxID > o.ROWID)
+```
+**Giải thích:**
+	`SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  GROUP BY email`: lấy ROWID lớn nhất cho mỗi email trong bảng. Mục đích xác định bản ghi cuối cùng nhập vào đối với mỗi email
+	`Select 	
+	 ROWID FROM club_member_info_cleaned o
+	 JOIN (SELECT email, MAX(ROWID) as maxID FROM club_member_info_cleaned cmic  
+	 GROUP BY email) as n ON o.email = n.email
+	 where n.maxID > o.ROWID`: Lấy danh sách ROWID cần xóa để loại bỏ bản ghi trùng. Chỉ giữ lại bản ghi có ROWID lớn nhất cho mỗi email vì có thể đó là bản ghi chính xác nhất.
+	 ***Chú ý***: Vì trong table không có cột id nên chúng ta sử dụng ROWID(chỉ dành riêng cho SQLite) để thay thế 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
